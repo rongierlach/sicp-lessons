@@ -30,3 +30,6 @@ To load a source file when starting Scheme:
 
 To quit (in REPL):  
 `1 ] => (quit)`
+
+## Lectures
+Taped lectures can be found [here](https://www.youtube.com/playlist?list=PLE18841CABEA24090). Enjoy!
