@@ -7,8 +7,6 @@
 
 (define (>= x y) (not (< x y)))
 
-;(define (<= x y) (not (> x y)))
-
 (define (is-greatest x y z)
   (and (>= x y) (>= x z)))
 
@@ -16,27 +14,17 @@
   (and (not (is-greatest x y z))
        (or (>= x y) (>= x z))))
 
-;(define (pick-on-condition condition)
-;  (lamda (x y z)
-;    (cond ((condition x y z) x)
-;          ((condition y x z) y)
-;          (else z))))
-;
-;(define (pick-greatest x y z)
-;  ((pick-on-condition is-greatest) x y z))
-;
-;(define (pick-next-greatest x y z)
-;  ((pick-on-condition is-next-greatest) x y z))
+(define (pick-on-condition condition)
+  (lambda (x y z)
+    (cond ((condition x y z) x)
+          ((condition y x z) y)
+          (else z))))
 
 (define (pick-greatest x y z)
-  (cond ((is-greatest x y z) x)
-        ((is-greatest y x z) y)
-        (else z)))
+  ((pick-on-condition is-greatest) x y z))
 
 (define (pick-next-greatest x y z)
-  (cond ((is-next-greatest x y z) x)
-        ((is-next-greatest y x z) y)
-        (else z)))
+  ((pick-on-condition is-next-greatest) x y z))
 
 (define (procedure x y z)
   (+ (square (pick-greatest x y z))
