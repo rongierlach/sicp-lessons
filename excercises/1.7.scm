@@ -16,36 +16,27 @@
 ;; is a very small fraction of the guess.
 ;; Design a square-root procedure that uses this kind of end test.
 ;; Does this work better for small and large numbers?
-(define tolerance 0.001)
-
 (define (square x) (* x x))
 
 (define (abs x)
   (if (< x 0) (- x) x))
 
 (define (avg x y)
-  (/ (+ x y) 2))
+  (/ (+ x y) 2)
 
-(define (improve guess x)
-  (avg guess (/ x guess)))
+(define (sqrt x)
+  (define tolerance 0.001)
+  (define initial-guess 1.0)
+  (define (improve guess)
+    (avg guess (/ x guess)))
+  (define (good-enough? guess)
+    (< (/ (abs (- guess (improve guess)))
+          guess)
+       tolerance))
+  (define (sqrt-iter guess)
+    (if (good-enough? guess)
+        guess
+        (sqrt-iter (improve guess))))
+  (sqrt-iter initial-guess))
 
-
-;(define (good-enough? guess x)
-;  (< (abs (- (square guess) x))
-;     tolerance))
-
-(define (good-enough? guess x)
-  (< (/ (abs (- guess (improve guess x)))
-        guess)
-     tolerance))
-
-(define (square-root-iter guess x)
-  (if (good-enough? guess x)
-      guess
-      (square-root-iter (improve guess x)
-                        x)))
-
-(define (square-root x)
-  (square-root-iter 1.0 x))
-
-; This improves results for smaller numbers, but not for larger numbers
+; This improves results for smaller numbers and larger numbers
