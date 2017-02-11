@@ -31,7 +31,7 @@
 
 
 ;(define (good-enough? guess x)
-;  (< (abs (- (cube guess) x))
+;  (< (abs (- (square guess) x))
 ;     tolerance))
 
 (define (good-enough? guess x)
