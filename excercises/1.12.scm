@@ -2,7 +2,6 @@
 
 (define (pascal r c)
   (cond ((> c r) -1)
-        ((= c 0) 1)
-        ((= c r) 1)
+        ((or (= c 0) (= c r)) 1)
         (else (+ (pascal (- r 1) c)
                  (pascal (- r 1) (- c 1))))))
